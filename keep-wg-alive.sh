@@ -32,7 +32,7 @@ keep_alive_wg_conf() {
 	local wg_conf_path=$1
 	local ifname=$(basename -s .conf $wg_conf_path)
 	check_alive_wg_conf $wg_conf_path
-	if [[ $? > 1 ]];then
+	if [ $? -gt 1 ];then
 		return $?
 	fi
 	if [ $? == 1 ];then
