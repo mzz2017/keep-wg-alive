@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+
 check_alive() {
 	local ifname=$1
 	local server_ip=$2
