@@ -1,0 +1,8 @@
+[Unit]
+Description=Keep wireguard alive service
+Documentation=https://github.com/mzz2017/keep-wg-alive
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /usr/bin/keep-wg-alive.sh
+

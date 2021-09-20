@@ -1,0 +1,10 @@
+[Unit]
+Description=Keep wireguard alive service at intervals
+Documentation=https://github.com/mzz2017/keep-wg-alive
+
+[Timer]
+OnActiveSec=10s
+OnUnitActiveSec=10s
+
+[Install]
+WantedBy=timer.target
