@@ -15,7 +15,7 @@ makepkg -si
 ### Universal
 ```bash
 sudo cp keep-wg-alive.sh /usr/bin
-sudo cp ./systemd/*.{service,timer} /usr/lib/systemd/system
+sudo cp systemd/* /usr/lib/systemd/system
 ```
 
 ## Usage
