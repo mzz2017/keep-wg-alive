@@ -15,7 +15,7 @@ check_alive() {
 check_alive_wg_conf() {
 	local path=$1
 	local ifname=$(basename -s .conf $path)
-	local address_line=$(grep -E "Address\s?=" $path)
+	local address_line=$(grep -E "Endpoint\s?=" $path)
 	if [ $? != 0 ];then
 		# the file should be skipped
 		return 2
