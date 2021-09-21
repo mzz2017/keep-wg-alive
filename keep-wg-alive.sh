@@ -8,7 +8,7 @@ check_alive() {
 		# this wg interface is not up
 		return 0
 	fi
-	ping -n -c 1 $server_ip > /dev/null 2>&1
+	ping -n -W 5 -c 1 $server_ip > /dev/null 2>&1
 	return $?
 }
 
@@ -32,10 +32,11 @@ keep_alive_wg_conf() {
 	local wg_conf_path=$1
 	local ifname=$(basename -s .conf $wg_conf_path)
 	check_alive_wg_conf $wg_conf_path
-	if [ $? -gt 1 ];then
+	local ret=$?
+	if [ $ret -gt 1 ];then
 		return $?
 	fi
-	if [ $? == 1 ];then
+	if [ $ret == 1 ];then
 		echo "restart $ifname"
 		wg-quick down $ifname > /dev/null 2>&1
 		wg-quick up $ifname > /dev/null 2>&1
@@ -47,4 +48,3 @@ wg_conf_dir=${1:-/etc/wireguard}
 for conf in $(ls $wg_conf_dir);do
 	keep_alive_wg_conf $wg_conf_dir/$conf
 done
-
