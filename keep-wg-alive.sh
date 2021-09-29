@@ -1,12 +1,21 @@
 #!/bin/sh
 
-check_alive() {
+check_if_up() {
 	local ifname=$1
-	local server_ip=$2
 	ip link show $ifname > /dev/null 2>&1
 	if [ $? != 0 ]; then
 		# this wg interface is not up
-		return 0
+		return 1
+	fi
+	return 0
+}
+
+check_alive() {
+	local ifname=$1
+	local server_ip=$2
+	check_if_up $ifname
+	if [ $? != 0 ]; then
+		return 8
 	fi
 	ping -n -W 5 -c 1 $server_ip > /dev/null 2>&1
 	return $?
@@ -37,6 +46,10 @@ keep_alive_wg_conf() {
 		return $?
 	fi
 	if [ $ret == 1 ];then
+		check_if_up $ifname
+		if [ $? == 1 ];then
+			return 9
+		fi
 		echo "restart $ifname"
 		wg-quick down $ifname > /dev/null 2>&1
 		wg-quick up $ifname > /dev/null 2>&1
