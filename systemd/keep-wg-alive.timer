@@ -5,6 +5,7 @@ Documentation=https://github.com/mzz2017/keep-wg-alive
 [Timer]
 OnActiveSec=10s
 OnUnitActiveSec=10s
+OnStartupSec=1s
 AccuracySec=1min
 
 [Install]
